@@ -5,7 +5,7 @@
 ``` js
 const setupDatabase = require('verse-db')
 
-setupDabase(config).then(db => {
+setupDatabase(config).then(db => {
   const { Agent, Metric } = db
 
 }).catch(err => console.error(err))

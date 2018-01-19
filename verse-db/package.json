@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "standard",
     "setup": "DEBUG=verse:* node setup.js",
-    "test": "DEBUG=verse:* ava tests/ --verbose"
+    "test": "DEBUG=verse:* nyc --reporter=lcov ava tests/ --verbose"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,9 @@
   "homepage": "https://github.com/teanocrata/verse#readme",
   "devDependencies": {
     "ava": "^0.24.0",
+    "nyc": "^11.4.1",
+    "proxyquire": "^1.8.0",
+    "sinon": "^4.1.6",
     "sqlite3": "^3.1.13",
     "standard": "^10.0.3"
   },

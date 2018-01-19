@@ -14,8 +14,17 @@ module.exports = function setupAgent (AgentModel) {
     return AgentModel.findOne(cond)
   }
 
-  function findAll (id) {
-    return AgentModel.findAll(id)
+  function findAll () {
+    return AgentModel.findAll()
+  }
+
+  function findConnected (id) {
+    const cond = {
+      where: {
+        connected: true
+      }
+    }
+    return AgentModel.findAll(cond)
   }
 
   async function createOrUpdate (agent) {
@@ -35,5 +44,5 @@ module.exports = function setupAgent (AgentModel) {
     const result = await AgentModel.create(agent)
     return result.toJSON()
   }
-  return { findById, findByUuid, findAll, createOrUpdate }
+  return { findById, findByUuid, findAll, findConnected, createOrUpdate }
 }

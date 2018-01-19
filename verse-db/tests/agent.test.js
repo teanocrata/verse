@@ -58,6 +58,7 @@ test.beforeEach(async () => {
   AgentStub.findAll = sandbox.stub()
   AgentStub.findAll.withArgs().returns(Promise.resolve(agentFixtures.all))
   AgentStub.findAll.withArgs(connectedArgs).returns(Promise.resolve(agentFixtures.connected))
+  AgentStub.findAll.withArgs(usernameArgs).returns(Promise.resolve(agentFixtures.byUsername(username)))
 
   // Model update AgentStub
   AgentStub.update = sandbox.stub()
@@ -124,11 +125,11 @@ test.serial('Agent#findConnected', async t => {
 })
 
 test.serial('Agent#findByUsername', async t => {
-  let agent = await db.Agent.findByUsername(username)
+  let agents = await db.Agent.findByUsername(username)
   t.true(AgentStub.findAll.called, 'findAll should be called on model')
   t.true(AgentStub.findAll.calledOnce, 'findAll should be called once')
   t.true(AgentStub.findAll.calledWith(usernameArgs), 'findAll argument should be empty')
-  t.deepEqual(agent, agentFixtures.byUsername(username), 'should be the same')
+  t.deepEqual(agents, agentFixtures.byUsername(username), 'should be the same')
 })
 
 test.serial('Agent#createOrUpdate - exits', async t => {

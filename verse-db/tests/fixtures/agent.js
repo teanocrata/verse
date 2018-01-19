@@ -14,13 +14,13 @@ const agent = {
 
 const agents = [
   agent,
-  extend(agent, { id: 2, uuid: 'yyy-yyy-yyw', connected: false, username: 'agenttestw' }),
+  extend(agent, { id: 2, uuid: 'yyy-yyy-yyw', connected: false, username: 'agentest' }),
   extend(agent, { id: 3, uuid: 'yyy-yyy-yyx' }),
-  extend(agent, { id: 4, uuid: 'yyy-yyy-yyz', username: 'agenttestz' })
+  extend(agent, { id: 4, uuid: 'yyy-yyy-yyz', username: 'agentest' })
 ]
 
 function extend (obj, values) {
-  return {...obj, values}
+  return {...obj, ...values}
 }
 
 module.exports = {

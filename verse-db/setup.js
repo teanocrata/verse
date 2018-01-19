@@ -4,18 +4,21 @@ const debug = require('debug')('verse:db:setup')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const db = require('./')
+const { argv } = require('yargs')
 
 const prompt = inquirer.createPromptModule()
 
 async function setup () {
-  const answer = await prompt([{
-    type: 'confirm',
-    name: 'setup',
-    message: 'This will destroy your database. Are you sure?'
-  }])
+  if (!argv.yes) {
+    const answer = await prompt([{
+      type: 'confirm',
+      name: 'setup',
+      message: 'This will destroy your database. Are you sure?'
+    }])
 
-  if (!answer.setup) {
-    return console.log('Nothing happend')
+    if (!answer.setup) {
+      return console.log('Nothing happend')
+    }
   }
 
   const config = {

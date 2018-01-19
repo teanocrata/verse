@@ -17,6 +17,7 @@ let AgentStub = null
 let single = {...agentFixtures.agent}
 let id = 1
 let uuid = 'yyy-yyy-yyy'
+let username = 'testagent'
 let db = null
 let sandbox = null
 
@@ -29,6 +30,12 @@ let uuidArgs = {
 let connectedArgs = {
   where: {
     connected: true
+  }
+}
+
+let usernameArgs = {
+  where: {
+    username
   }
 }
 
@@ -106,6 +113,14 @@ test.serial('Agent#findConnected', async t => {
   t.true(AgentStub.findAll.calledOnce, 'findAll should be called once')
   t.true(AgentStub.findAll.calledWith(connectedArgs), 'findAll argument should be empty')
   t.deepEqual(agent, agentFixtures.connected, 'should be the same')
+})
+
+test.serial('Agent#findByUsername', async t => {
+  let agent = await db.Agent.findByUsername(username)
+  t.true(AgentStub.findAll.called, 'findAll should be called on model')
+  t.true(AgentStub.findAll.calledOnce, 'findAll should be called once')
+  t.true(AgentStub.findAll.calledWith(usernameArgs), 'findAll argument should be empty')
+  t.deepEqual(agent, agentFixtures.byUsername(username), 'should be the same')
 })
 
 test.serial('Agent#createOrUpdate - exits', async t => {

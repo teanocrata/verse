@@ -14,6 +14,10 @@ module.exports = function setupAgent (AgentModel) {
     return AgentModel.findOne(cond)
   }
 
+  function findAll (id) {
+    return AgentModel.findAll(id)
+  }
+
   async function createOrUpdate (agent) {
     const cond = {
       where: {
@@ -31,5 +35,5 @@ module.exports = function setupAgent (AgentModel) {
     const result = await AgentModel.create(agent)
     return result.toJSON()
   }
-  return { findById, findByUuid, createOrUpdate }
+  return { findById, findByUuid, findAll, createOrUpdate }
 }

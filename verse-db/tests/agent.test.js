@@ -39,6 +39,8 @@ let usernameArgs = {
   }
 }
 
+let newAgent = {...single, uuid: 'xxx-xxx-xxx', name: 'newagent'}
+
 test.beforeEach(async () => {
   sandbox = sinon.sandbox.create()
   AgentStub = {
@@ -60,6 +62,12 @@ test.beforeEach(async () => {
   // Model update AgentStub
   AgentStub.update = sandbox.stub()
   AgentStub.update.withArgs(single, uuidArgs).returns(Promise.resolve(single))
+
+  // Model create AgentStub
+  AgentStub.create = sandbox.stub()
+  AgentStub.create.withArgs(newAgent).returns(Promise.resolve({
+    toJSON () { return newAgent }
+  }))
 
   const setupDatabase = proxyquire('../', {
     './models/agent': () => AgentStub,
@@ -130,4 +138,13 @@ test.serial('Agent#createOrUpdate - exits', async t => {
   t.true(AgentStub.update.called, 'update should be called on model')
   t.true(AgentStub.update.calledOnce, 'update should be called once')
   t.deepEqual(agent, single, 'agent should be the same')
+})
+
+test.serial('Agent#createOrUpdate - new', async t => {
+  let agent = await db.Agent.createOrUpdate(newAgent)
+  t.true(AgentStub.findOne.called, 'findOne should be called on model')
+  t.true(AgentStub.findOne.calledOnce, 'findOne should be called once')
+  t.true(AgentStub.create.called, 'update should be called on model')
+  t.true(AgentStub.create.calledOnce, 'update should be called once')
+  t.deepEqual(agent, newAgent, 'agent should be the same')
 })

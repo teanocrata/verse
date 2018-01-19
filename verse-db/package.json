@@ -6,13 +6,14 @@
   "scripts": {
     "lint": "standard",
     "setup": "DEBUG=verse:* node setup.js",
-    "test": "DEBUG=verse:* nyc --reporter=lcov ava tests/ --verbose"
+    "coverage": "DEBUG=verse:* nyc --reporter=lcov --reporter text ava",
+    "test": "DEBUG=verse:* ava --verbose"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teanocrata/verse.git"
   },
-  "author": "Julian Duque <julianduquej@gmail.com>",
+  "author": "Isabel Muñoz <teanocrata@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/teanocrata/verse/issues"
